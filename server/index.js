@@ -1,26 +1,24 @@
 import express from "express";
+import userRoutes from "./routes/user.js";
+import authRoutes from "./routes/auth.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
-import userRoutes from "./routes/user.js"
-
-import authRoutes from "./routes/auth.js"
-//import commentRoutes from "./routes/comments.js"
-
-//import postRoutes from "./routes/posts.js"
-//import likeRoutes from "./routes/likes.js"
 const app = express();
+
+// Set up middleware
+app.use(cookieParser());
 app.use(express.json());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true // Allow credentials
+}));
 
-
+// Define routes
 app.use("/api/user", userRoutes);
-
-//app.use("/api/comment",commentRoutes);
-
-//app.use("/api/like",likeRoutes);
-
 app.use("/api/auth", authRoutes);
 
-//app.use("/api/posts",postRoutes);
-
+// Start the server
 app.listen(5000, () => {
-    console.log("api Working");
-})
+    console.log("API server is running on port 5000");
+});
