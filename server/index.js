@@ -1,6 +1,8 @@
 import express from "express";
 import userRoutes from "./routes/user.js";
 import authRoutes from "./routes/auth.js";
+
+import postsRoutes from "./routes/posts.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -16,6 +18,8 @@ app.use(cors({
 
 // Define routes
 app.use("/api/user", userRoutes);
+
+app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
 
 // Start the server

@@ -1,15 +1,15 @@
 //use effect and use state its works like this react query
 // import Stories from "../../components/stories/Stories"
-// import Posts from "../../components/posts/Posts"
-// import Share from "../../components/share/Share"
-import "./home.scss"
+ import Share from "../../component/createpost/createpost"
+import Posts from "../../component/posts/posts"
+import "./home.css"
 
 const Home = () => {
   return (
     <div className="home">
-      {/* <Stories/>
+      {/* <Stories/>*/}
       <Share/>
-      <Posts/> */}
+      <Posts/> 
     </div>
   )
 }

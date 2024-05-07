@@ -1,0 +1,44 @@
+/* Light Theme */
+.theme-light .theme-logo {
+    color: darkblue;
+  }
+  .theme-light {
+    color: #000;
+    background-color: white;
+    border-color: lightgray;
+  }
+  .theme-light .theme-bgSoft {
+    background-color: #f6f3f3;
+  }
+  .theme-light .theme-textColorSoft {
+    color: #555;
+  }
+  
+  /* Dark Theme */
+  .theme-dark .theme-logo {
+    color: white;
+  }
+  .theme-dark {
+    color: whitesmoke;
+    background-color: #222;
+    border-color: #444;
+  }
+  .theme-dark .theme-bgSoft {
+    background-color: #333;
+  }
+  .theme-dark .theme-textColorSoft {
+    color: lightgray;
+  }
+  
+  /* Media Mixins */
+  @media (max-width: 480px) {
+    .mobile {
+      /* Content goes here */
+    }
+  }
+  @media (max-width: 960px) {
+    .tablet {
+      /* Content goes here */
+    }
+  }
+  

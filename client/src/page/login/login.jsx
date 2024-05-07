@@ -3,7 +3,7 @@ import { signInFailure, signInSuccess, signInStart } from '../../redux/userslice
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import "./login.css"
 const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -25,7 +25,7 @@ const navigate =useNavigate();
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const response = await axios.post("http://localhost:5000/api/auth/Login", formData,{
+      const response = await axios.post("/api/auth/Login", formData,{
         withCredentials:true,
       });
       const data = await response.data;

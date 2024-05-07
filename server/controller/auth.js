@@ -2,29 +2,35 @@ import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-export const Login = async (req, res) => {
+export const Login = async (req, res, next) => {
+    const { email, password } = req.body;
     try {
         const q = "SELECT * FROM users WHERE username = ?";
-        const data = await new Promise((resolve, reject) => {
-            db.query(q, [req.body.username], (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
+        db.query(q, [req.body.username], (err, data) => {
+            if (err) {
+                return next(err);
+            }
+
+            if (data.length === 0) {
+                return res.status(400).json("User not found");
+            }
+
+            const user = data[0];
+            const checkPassword = bcrypt.compareSync(password, user.password);
+            if (!checkPassword) {
+                return res.status(400).json("Wrong password");
+            }
+
+            const token = jwt.sign({ id: user.user_id }, "secretkey");
+            console.log(data);
+            res.cookie('access_token', token, { httpOnly: true }).status(200).json({ id: user.user_id, email: user.email });
         });
-
-        if (data.length === 0) return res.status(403).json("User not found");
-
-        const isPasswordCorrect = bcrypt.compareSync(req.body.password, data[0].password);
-        if (!isPasswordCorrect) return res.status(404).json("Wrong credentials!");
-
-        const token = jwt.sign({ id: data[0].id }, "secretKey");
-        const { password, ...rest } = data[0];
-        
-        res.cookie('access_token', token, { httpOnly: true }).status(200).json(rest);
     } catch (error) {
-        res.status(500).json(error.message);
+        next(error);
     }
 };
+
+
 
 export const Logout = (req, res) => {
     res.clearCookie('access_token',{secure:true , sameSite:"none"});

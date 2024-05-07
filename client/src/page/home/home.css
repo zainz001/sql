@@ -1,0 +1,15 @@
+@import "../../../style.css";
+
+.home {
+  padding: 20px 70px;
+  min-height: 100vh;
+  background-color: var(--bgSoft);
+
+  @media only screen and (max-width: 768px) {
+    padding: 10px;
+  }
+
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    padding: 20px;
+  }
+}
